@@ -1,0 +1,20 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.favorite-icon{
+    margin-left: 1rem;
+}
+
+.filled{
+    color: red;
+}
