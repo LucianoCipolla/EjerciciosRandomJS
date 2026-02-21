@@ -1,0 +1,31 @@
+#drum-machine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #282c34;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+#pad-bank {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.drum-pad {
+    width: 80px;
+    height: 80px;
+    background-color: #61dafb;    
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+.drum-pad:hover {
+    background-color: #21a1f1;
+}
