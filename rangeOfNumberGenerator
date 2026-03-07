@@ -1,0 +1,12 @@
+function rangeOfNumbers(startNum,endNum){
+  let array = [startNum]
+  if (startNum===endNum){
+    return [startNum]
+  } else {
+    array = rangeOfNumbers(startNum,endNum-1)
+    array.push(endNum)
+    return array
+  }
+}
+
+console.log(rangeOfNumbers(9, 9))
