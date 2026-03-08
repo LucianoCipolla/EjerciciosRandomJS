@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --bg: #0a0f0a;
+  --screen: #0d150d;
+  --phosphor: #39ff14;
+  --phosphor-dim: #1a7a08;
+  --phosphor-glow: rgba(57, 255, 20, 0.35);
+  --amber: #ffb700;
+  --red-highlight: #ff3c3c;
+  --border-color: #1e3d1e;
+  --text-dim: #2a5c2a;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #060a06;
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--phosphor);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px 60px;
+  min-height: 100vh;
+  /* CRT scanline overlay */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.15) 3px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+}
+
+/* Vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+  z-index: 100;
+}
+
+main {
+  width: 100%;
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Fake terminal window chrome */
+main::before {
+  content: '● BUBBLE SORT MACHINE v1.0 ── [ACTIVE]';
+  display: block;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--phosphor);
+  text-shadow: 0 0 8px var(--phosphor);
+  background: var(--border-color);
+  padding: 10px 20px;
+  border: 1px solid var(--phosphor-dim);
+  border-bottom: none;
+  opacity: 0.9;
+}
+
+/* ── ARRAY CONTAINER ── */
+#array-container {
+  background: var(--screen);
+  border: 1px solid var(--phosphor-dim);
+  border-bottom: none;
+  padding: 28px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 120px;
+  position: relative;
+}
+
+#array-container::before {
+  content: '> SORT_TRACE:';
+  position: absolute;
+  top: 10px;
+  left: 28px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--phosphor-dim);
+  text-transform: uppercase;
+}
+
+/* Starting array row */
+#starting-array {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Each step div appended during sort */
+#array-container > div:not(#starting-array) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 16px;
+  border-left: 2px solid var(--text-dim);
+  animation: fadeIn 0.25s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Stagger each row with nth-child delay */
+#array-container > div:nth-child(1)  { animation-delay: 0.00s; }
+#array-container > div:nth-child(2)  { animation-delay: 0.08s; }
+#array-container > div:nth-child(3)  { animation-delay: 0.16s; }
+#array-container > div:nth-child(4)  { animation-delay: 0.24s; }
+#array-container > div:nth-child(5)  { animation-delay: 0.32s; }
+#array-container > div:nth-child(6)  { animation-delay: 0.40s; }
+#array-container > div:nth-child(7)  { animation-delay: 0.48s; }
+#array-container > div:nth-child(8)  { animation-delay: 0.56s; }
+#array-container > div:nth-child(9)  { animation-delay: 0.64s; }
+#array-container > div:nth-child(10) { animation-delay: 0.72s; }
+#array-container > div:nth-child(11) { animation-delay: 0.80s; }
+#array-container > div:nth-child(12) { animation-delay: 0.88s; }
+#array-container > div:nth-child(13) { animation-delay: 0.96s; }
+#array-container > div:nth-child(14) { animation-delay: 1.04s; }
+#array-container > div:nth-child(15) { animation-delay: 1.12s; }
+#array-container > div:nth-child(16) { animation-delay: 1.20s; }
+#array-container > div:nth-child(17) { animation-delay: 1.28s; }
+#array-container > div:nth-child(18) { animation-delay: 1.36s; }
+#array-container > div:nth-child(19) { animation-delay: 1.44s; }
+#array-container > div:nth-child(20) { animation-delay: 1.52s; }
+
+/* ── SPAN (number cell) ── */
+span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 44px;
+  font-family: 'VT323', monospace;
+  font-size: 26px;
+  color: var(--phosphor);
+  text-shadow: 0 0 8px var(--phosphor-glow);
+  background: transparent;
+  border: 1px solid var(--phosphor-dim);
+  letter-spacing: 1px;
+  position: relative;
+  transition: color 0.15s, border-color 0.15s, text-shadow 0.15s;
+}
+
+/* Highlighted pair */
+span[style*="dashed"] {
+  color: var(--red-highlight) !important;
+  text-shadow: 0 0 10px rgba(255, 60, 60, 0.7) !important;
+  background: rgba(255, 60, 60, 0.06);
+}
+
+/* Separator between spans */
+span + span::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--phosphor-dim);
+}
+
+/* ── BUTTON CONTAINER ── */
+#btn-container {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--phosphor-dim);
+  background: #060e06;
+  padding: 18px 28px;
+  border-top: 1px solid var(--border-color);
+}
+
+button {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 10px 32px;
+  cursor: pointer;
+  border: 1px solid var(--phosphor-dim);
+  background: transparent;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px var(--phosphor-glow);
+  transition: background 0.15s, box-shadow 0.15s, color 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '> ';
+  opacity: 0.5;
+}
+
+button:hover {
+  background: rgba(57, 255, 20, 0.1);
+  box-shadow: 0 0 16px var(--phosphor-glow), inset 0 0 10px rgba(57, 255, 20, 0.05);
+  color: #fff;
+  text-shadow: 0 0 12px var(--phosphor);
+}
+
+button:active {
+  background: rgba(57, 255, 20, 0.2);
+  transform: scale(0.98);
+}
+
+#generate-btn {
+  margin-right: 16px;
+  border-color: var(--phosphor-dim);
+}
+
+#sort-btn {
+  border-color: var(--amber);
+  color: var(--amber);
+  text-shadow: 0 0 6px rgba(255, 183, 0, 0.4);
+}
+
+#sort-btn:hover {
+  background: rgba(255, 183, 0, 0.1);
+  box-shadow: 0 0 16px rgba(255, 183, 0, 0.3);
+  text-shadow: 0 0 12px var(--amber);
+  color: #ffe066;
+}
+
+/* Status bar at bottom */
+#btn-container::after {
+  content: 'MEM: OK  |  ALG: BUBBLE  |  n=5';
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-left: auto;
+  align-self: center;
+  padding-right: 4px;
+}
